@@ -2,18 +2,37 @@
 
 API REST para gerenciamento de destinos de viagens, desenvolvida em Node.js com Express.
 
-## Funcionalidades
+## ✨ Funcionalidades
 
-- ✅ Registro de usuários
-- ✅ Login de usuários
-- ✅ Busca de informações do usuário logado
-- ✅ Registro de destinos
-- ✅ Listagem de todos os destinos do usuário
-- ✅ Busca de detalhes de um destino específico
-- ✅ Atualização de destinos
-- ✅ Remoção de destinos
+👤 Gestão de Usuários
 
-## Tecnologias Utilizadas
+- Registro de novos usuários - Crie sua conta com nome, email, telefone e senha
+
+- Autenticação segura - Login com JWT para acesso protegido
+
+- Perfil do usuário - Consulte suas informações de forma segura
+
+🗺️ Gestão de Destinos
+
+- Criação de destinos - Registre novos destinos com nome e status obrigatórios
+
+- Listagem personalizada - Veja todos os seus destinos organizados
+
+- Detalhes completos - Acesse informações específicas de cada destino
+
+- Atualização flexível - Modifique destinos conforme seu planejamento evolui
+
+- Exclusão segura - Remova destinos quando necessário
+
+🔒 Status de Destinos
+
+📝 Wishlist - Lista de desejos para viagens futuras
+
+📅 Planning - Viagens em fase de planejamento
+
+✅ Completed - Destinos já visitados
+
+##  🛠 Tecnologias Utilizadas
 
 - Node.js
 - Express.js
@@ -22,114 +41,179 @@ API REST para gerenciamento de destinos de viagens, desenvolvida em Node.js com 
 - bcrypt (criptografia de senhas)
 - Swagger (documentação)
 
-## Instalação e Execução
+## 🚀 Instalação e Execução
 
-1. Instale as dependências:
+### Pré-requisitos
+- Node.js (versão 14 ou superior)
+- npm ou yarn
+
+### Passos para instalação
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/seu-usuario/travel-destination-api.git
+   cd travel-destination-api
+
+2. **Instale as dependências:**
+
 ```bash
 npm install
+```
 
-Execute a aplicação:
-
-
-bash
+3. **Execute a aplicação:**
+```bash
 npm start
-Acesse a documentação Swagger:
+```
 
-text
+4. **Acesse a documentação:**
+Abra seu navegador e acesse:
+```bash
 http://localhost:3000/api-docs
-Estrutura da API
+```
+
+📡 Estrutura da API
 Autenticação
-Todas as rotas de destinos requerem autenticação JWT. Inclua o token no header:
 
-text
-Authorization: Bearer <seu_token>
-Endpoints
-Usuários
-POST /api/users/register - Registrar novo usuário
+A maioria dos endpoints requer autenticação via JWT. Inclua o token no header das requisições:
 
-POST /api/users/login - Fazer login
+```bash
+Authorization: Bearer <seu_token_jwt>
+```
 
-GET /api/users/profile - Obter perfil do usuário logado
+Endpoints Principais
 
-Destinos
-POST /api/destinations - Criar novo destino
+👤 Usuários
 
-GET /api/destinations - Listar destinos do usuário
+Método	Endpoint	Descrição
 
-GET /api/destinations/:id - Buscar destino específico
+- POST	/api/users/register	Registrar novo usuário
 
-PUT /api/destinations/:id - Atualizar destino
+- POST	/api/users/login	Fazer login
 
-DELETE /api/destinations/:id - Excluir destino
+- GET	/api/users/profile	Obter perfil do usuário logado
+
+🗺️ Destinos
+
+Método	Endpoint	Descrição
+
+- POST	/api/destinations	Criar novo destino
+
+- GET	/api/destinations	Listar destinos do usuário
+
+- GET	/api/destinations/:id	Buscar destino específico
+
+- PUT	/api/destinations/:id	Atualizar destino
+
+- DELETE	/api/destinations/:id	Excluir destino
 
 Status de Destinos
-wishlist - Lista de desejos
 
-planning - Em planejamento
+Status	Descrição
 
-completed - Concluído
+wishlist	Lista de desejos - lugares que você quer visitar
 
-Exemplos de Uso
-Registro de Usuário
-json
+planning	Em planejamento - viagem sendo organizada
+
+completed	Concluído - lugares que você já visitou
+
+💡 Exemplos de Uso
+
+1. **Registro de Usuário:**
+```bash
 POST /api/users/register
+Content-Type: application/json
+
 {
   "name": "João Silva",
   "email": "joao@email.com",
   "phone": "11999999999",
   "password": "senha123"
 }
-Login
-json
+```
+
+2. **Login:**
+```bash
 POST /api/users/login
+Content-Type: application/json
+
 {
   "email": "joao@email.com",
   "password": "senha123"
 }
-Criar Destino
-json
+```
+   
+3. **Criar Destino (requer autenticação)**
+```bash
 POST /api/destinations
 Authorization: Bearer <token>
+Content-Type: application/json
+
 {
-  "name": "Paris",
+  "name": "Paris, França",
   "status": "wishlist",
-  "details": "Visitar Torre Eiffel",
+  "details": "Visitar Torre Eiffel e Museu do Louvre",
   "data": "2024"
 }
-Estrutura do Projeto
-text
-src/
-├── controllers/    # Lógica dos endpoints
-├── middleware/     # Autenticação JWT
-├── models/         # Modelos de dados
-├── routes/         # Definição de rotas
-├── services/       # Lógica de negócio
-└── app.js          # Configuração do Express
-text
-
-## Como Executar
-
-1. **Instale as dependências:**
+```
+📁 Estrutura do Projeto
 ```bash
-npm install
-Execute a aplicação:
+travel-destination-api/
+├── src/
+│   ├── controllers/     # Lógica dos endpoints
+│   │   ├── userController.js
+│   │   └── destinationController.js
+│   ├── middleware/      # Autenticação e outros middlewares
+│   │   └── authMiddleware.js
+│   ├── models/          # Modelos de dados e acesso ao banco
+│   │   ├── database.js
+│   │   ├── userModel.js
+│   │   └── destinationModel.js
+│   ├── routes/          # Definição das rotas
+│   │   ├── userRoutes.js
+│   │   └── destinationRoutes.js
+│   ├── app.js           # Configuração do Express
+│   └── server.js        # Ponto de entrada da aplicação
+├── resources/
+│   └── swagger.json     # Documentação Swagger
+├── package.json
+└── README.md
+```
+🔧 Desenvolvimento
+Para executar em modo de desenvolvimento com atualização automática:
+```bash
+npm run dev
+```
 
-bash
-npm start
-Acesse a documentação:
+🎯 Funcionalidades Implementadas
 
-text
-http://localhost:3000/api-docs
-A API está completamente funcional com todas as especificações solicitadas:
+- Autenticação JWT
 
-✅ Autenticação JWT
+- CRUD completo de destinos
 
-✅ CRUD completo de destinos
+- Validações e tratamento de erros
 
-✅ Validações e tratamento de erros
+- Documentação Swagger integrada
 
-✅ Documentação Swagger
+- Banco de dados em memória SQLite
 
-✅ Banco em memória SQLite
+- Arquitetura em camadas (MVC)
 
-✅ Arquitetura em camadas
+- Criptografia de senhas
+
+- Middleware de autenticação
+
+🤝 Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
+
+- Fork o projeto
+
+- Crie uma branch para sua feature (git checkout -b feature/AmazingFeature)
+
+- Commit suas mudanças (git commit -m 'Add some AmazingFeature')
+
+- Push para a branch (git push origin feature/AmazingFeature)
+
+- Abra um Pull Request
+
+*Desenvolvido para uso acadêmico.*
